@@ -1,0 +1,66 @@
+{
+    "name": "neptune-vaults",
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "local": "concurrently \"solana-test-validator -c FmAmfoyPXiA8Vhhe6MZTr3U6rZfEZ1ctEHay1ysqCqcf -u d -r\" \"./reset-workspace.sh\"",
+        "test": "npm run test:vaults; test:redeem-vaults; npm run test:linked-list; npm run test:interest; npm run test:liquidation-pool; npm run test:oracles; npm run test:redistribute; npm run test:staking-pools; npm run test:halting; npm run test:linked-list; npm run test:linked-list-regress; npm run test:fees; npm run test:referral",
+        "test:fees": "anchor test tests/neptune-fees.spec.ts",
+        "test:halting": "anchor test tests/neptune-halting.spec.ts",
+        "test:interest-liquidation": "anchor test tests/neptune-interest-vault-liquidation.spec.ts",
+        "test:interest": "anchor test tests/neptune-interest-vault.spec.ts",
+        "test:linked-list-regress": "anchor test tests/neptune-linked-list-regression.spec.ts",
+        "test:linked-list": "anchor test tests/neptune-linked-list.spec.ts",
+        "test:liquidation-pool": "anchor test tests/neptune-liquidation-pool.spec.ts",
+        "test:oracles": "anchor test tests/neptune-oracles.spec.ts",
+        "test:psm": "anchor test tests/neptune-psm.spec.ts",
+        "test:redeem-vaults": "anchor test tests/neptune-redeem.spec.ts",
+        "test:referral": "anchor test tests/neptune-referral.spec.ts",
+        "test:redistribute": "anchor test tests/neptune-redistribute.spec.ts",
+        "test:staking-pools": "anchor test tests/neptune-staking-pools.spec.ts",
+        "test:update-vault-type": "anchor test tests/neptune-update-vault-type.spec.ts",
+        "test:vaults": "anchor test tests/neptune-vault.spec.ts",
+        "build:devnet": "anchor build -- --features \"devnet\"",
+        "upgrade-sdk": "anchor build && cp target/types/* sdk/src/idl/ && cd sdk && npm version",
+        "sdk": "cd sdk && npm i && npm run build",
+        "sdk:upgrade": "anchor build && cp target/types/vault.ts sdk/src/idl/vault.ts && cd sdk && npm version patch && npm run build && npm publish"
+    },
+    "dependencies": {
+        "@project-serum/serum": "^0.13.60",
+        "@pythnetwork/client": "^2.2.0",
+        "@solana/buffer-layout": "^4.0.0",
+        "@solana/spl-token": "0.4.8",
+        "@solana/web3.js": "^1.98.4",
+        "@types/should": "^13.0.0",
+        "bignumber.js": "^9.0.1",
+        "chai": "^4.3.4",
+        "concurrently": "^6.4.0",
+        "decimal.js": "^10.3.1",
+        "eslint": "^7.32.0",
+        "eslint-config-next": "^11.1.2",
+        "mocha-circleci-reporter": "^0.0.3",
+        "mocha-steps": "^1.3.0",
+        "mocha-ts": "^0.0.0",
+        "should": "^13.2.3",
+        "standard": "^16.0.3",
+        "ts-mocha": "^9.0.2",
+        "ts-standard": "^11.0.0",
+        "underscore": "^1.13.2"
+    },
+    "standard": {
+        "env": [
+            "mocha"
+        ]
+    },
+    "version": "0.0.1",
+    "devDependencies": {
+        "@coral-xyz/anchor": "0.32.1",
+        "@types/bn.js": "^5.1.0",
+        "@types/bs58": "^4.0.1",
+        "@types/chai": "^4.3.1",
+        "@types/mocha": "^9.1.0",
+        "@types/uuid": "^8.3.4",
+        "typescript": "^4.3.5"
+    }
+}

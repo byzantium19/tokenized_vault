@@ -1,0 +1,63 @@
+# Anchor Build Artifacts
+.anchor/
+target/
+**/*.rs.bk
+*.pdb
+
+# Solana Program Artifacts
+*.so
+*.dylib
+*.dll
+test-ledger/
+.program-keypairs/
+
+# Cargo Lock Files (should be regenerated on each machine)
+Cargo.lock
+
+# Node Dependencies & Lock Files
+node_modules/
+yarn.lock
+package-lock.json
+dist/
+
+# IDE & Editor Files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+yarn-error.log
+npm-debug.log*
+
+# Testing
+.nyc_output/
+coverage/
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Rust Compilation Cache
+**/.cargo/
+.rustc_info.json
+
+# Solana Keys (IMPORTANT: Never commit private keys!)
+*.json
+!tsconfig.json
+!package.json
+!Anchor.toml
+
+# Temporary Files
+*.tmp
+*.temp
+*.swn
+*.swo
+
+# OS Files
+Thumbs.db
+Desktop.ini
