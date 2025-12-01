@@ -3,12 +3,6 @@ use anchor_lang::prelude::*;
 use crate::{constants::*, errors::*, events::*, state::*};
 
 /// Toggle a protocol on/off in the whitelist
-///
-/// Security checklist:
-/// ✅ 1. SIGNER VALIDATION: Authority must be signer
-/// ✅ 3. AUTHORITY CHECKS: has_one constraint validates authority
-/// ✅ 9. ACCESS CONTROL: Authority-only function
-/// ✅ 10. EVENTS: Emits ProtocolToggled event
 #[derive(Accounts)]
 pub struct ToggleProtocol<'info> {
     /// Vault authority - only they can manage protocols
@@ -53,8 +47,6 @@ pub fn handler(
         enabled,
         timestamp: Clock::get()?.unix_timestamp,
     });
-
-    msg!("Protocol {} {}", target, if enabled { "enabled" } else { "disabled" });
 
     Ok(())
 }

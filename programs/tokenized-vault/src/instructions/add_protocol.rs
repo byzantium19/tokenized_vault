@@ -4,13 +4,6 @@ use crate::{constants::*, errors::*, events::*, state::*};
 
 /// Add a new protocol to the approved whitelist
 ///
-/// Security checklist:
-/// ✅ 1. SIGNER VALIDATION: Authority must be signer
-/// ✅ 3. AUTHORITY CHECKS: has_one constraint validates authority
-/// ✅ 4. INITIALIZATION: init constraint for first-time registry creation
-/// ✅ 8. BUSINESS LOGIC: Validates name length, checks for duplicates
-/// ✅ 9. ACCESS CONTROL: Authority-only function
-/// ✅ 10. EVENTS: Emits ProtocolAdded event
 #[derive(Accounts)]
 pub struct AddProtocol<'info> {
     /// Vault authority - only they can manage protocols
@@ -85,10 +78,6 @@ pub fn handler(
         name,
         timestamp: Clock::get()?.unix_timestamp,
     });
-
-    msg!("Protocol added successfully");
-    msg!("Target: {}", target);
-    msg!("Total protocols: {}", registry.approved_protocols.len());
 
     Ok(())
 }

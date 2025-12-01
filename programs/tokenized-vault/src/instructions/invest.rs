@@ -10,14 +10,6 @@ use crate::{constants::*, errors::*, events::*, state::*};
 /// - Prevents authority from investing to arbitrary addresses
 /// - Tracks invested amount per protocol
 ///
-/// Security checklist:
-/// ✅ 1. SIGNER VALIDATION: Authority must be signer
-/// ✅ 3. AUTHORITY CHECKS: has_one constraint validates authority
-/// ✅ 5. CPI SECURITY: Target validated against whitelist
-/// ✅ 6. MATH SAFETY: Uses checked operations
-/// ✅ 8. BUSINESS LOGIC: Validates sufficient balance, updates state
-/// ✅ 9. ACCESS CONTROL: Authority-only function
-/// ✅ 10. EVENTS: Emits Invested event
 #[derive(Accounts)]
 pub struct Invest<'info> {
     /// Vault authority - only they can invest
@@ -106,10 +98,6 @@ pub fn handler(ctx: Context<Invest>, amount: u64) -> Result<()> {
         .map(|p| p.name.clone())
         .unwrap_or_else(|| "Unknown".to_string());
 
-    msg!("Investing {} assets to whitelisted protocol", amount);
-    msg!("Target: {}", target);
-    msg!("Available balance: {}", available_balance);
-
     // EFFECTS: Track investment in registry
     registry.track_investment(&target, amount)?;
 
@@ -146,9 +134,6 @@ pub fn handler(ctx: Context<Invest>, amount: u64) -> Result<()> {
         total_assets: vault_state.total_assets,
         timestamp: Clock::get()?.unix_timestamp,
     });
-
-    msg!("Investment successful");
-    msg!("Invested amount: {}", amount);
 
     Ok(())
 }

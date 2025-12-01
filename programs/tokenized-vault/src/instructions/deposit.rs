@@ -4,14 +4,6 @@ use anchor_spl::token::{self, Mint, MintTo, Token, TokenAccount, Transfer};
 use crate::{constants::*, errors::*, events::*, state::*};
 
 /// Deposit assets into the vault and receive shares
-///
-/// Security checklist:
-/// ✅ 1. SIGNER VALIDATION: User must be signer
-/// ✅ 2. ACCOUNT OWNERSHIP: Vault state PDA validated with seeds
-/// ✅ 6. MATH SAFETY: Uses checked operations for share calculation
-/// ✅ 7. TOKEN ACCOUNT VALIDATION: Validates mint and owner
-/// ✅ 8. BUSINESS LOGIC: Checks-effects-interactions pattern
-/// ✅ 10. EVENTS: Emits Deposited event
 #[derive(Accounts)]
 pub struct Deposit<'info> {
     /// User depositing assets

@@ -7,14 +7,6 @@ use anchor_spl::{
 use crate::{constants::*, events::*, state::*};
 
 /// Initialize a new vault for a given asset token
-///
-/// Security checklist:
-/// ✅ 1. SIGNER VALIDATION: Authority must be signer
-/// ✅ 2. ACCOUNT OWNERSHIP: All PDAs properly validated with seeds
-/// ✅ 3. AUTHORITY CHECKS: Authority stored in vault state
-/// ✅ 4. INITIALIZATION: Using `init` constraint prevents reinitialization
-/// ✅ 5. CPI SECURITY: Token program validated with Program<'info, Token>
-/// ✅ 10. EVENTS: Emits VaultInitialized event
 #[derive(Accounts)]
 pub struct Initialize<'info> {
     /// Vault authority - can invest vault assets
